@@ -1,0 +1,43 @@
+<% include partials/header.ejs %>
+<% include partials/main_nav.ejs %>
+
+<link rel= "stylesheet" href= "Content\contact.css"/>
+
+<main>
+  <div class="jumbotron">
+    <h1 class="display-4">Hello!</h1>
+    <p class="lead"> This is our <%= title %>.</p>
+    <hr class="my-4">
+  </div>
+</main>
+
+<section id="contact">
+  <div class="contact container">
+    <div>
+      <h1 class="sectionTitle">Contact <span>Info</span></h1>
+    </div>
+    <div class="contactItems">
+      <div class="contactItem">
+        <div class="contactInfo">
+          <form action="#" method="post" class="phpEmailForm">
+            <p>Name</p>
+            <input type="text" name="name" placeholder="Your Name" required />
+            <p>Email</p>
+            <input type="email" name="email" placeholder="Your Email" required />
+            <p>Subject</p>
+            <input type="text" name="subject" placeholder="Subject" required />
+            <p>Message</p>
+            <textarea style="height: 150px" name="message" placeholder="Your Message" required></textarea>
+            <div class="button">
+              <button class="button" type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Contact Section -->
+
+<% include partials/bottom_nav.ejs %>
+<% include partials/footer.ejs %>

@@ -1,0 +1,48 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Ensure full height for scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+
+.about {
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: 100%; /* Ensure full height for scrolling */
+    margin-bottom: 20px; /* Space between sections */
+}
+
+
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Light gray background */
+}
+
+
+
+/* Jumbotron Styles */
+.jumbotron {
+    background-color: #410046; /* Bootstrap primary color */
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+    margin: 20px 0;
+}
+/* Styling the hero button */
+.hero-button {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 18px;
+    text-decoration: none;
+<<<<<<< HEAD
+    color: #000000; /* Text color */
+    background-color: #7b0493; /* Button color - change to fit your design */
+=======
+    color: #ffffff; /* Text color */
+    background-color: #310140; /* Button color - change to fit your design */
+>>>>>>> 1e5379cb7d72990271d7a33ed66e97353389b81d
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }

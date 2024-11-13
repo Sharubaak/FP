@@ -1,0 +1,62 @@
+<% include partials/header.ejs %>
+<% include partials/main_nav.ejs%>
+
+<main>
+<div class="jumbotron">
+  <h1 class="display-4">Hello!</h1>
+  <p class="lead">This is our <%=title%> .</p>
+  <hr class="my-4">
+</div>
+
+<div> 
+  <h2> Survey on International Students at Ontario Tech University.</h2>
+
+<!-- form for adding a new entry to the survey -->
+  <form action="surveyForm" method="POST">
+    <label for="studentName">Student Name:</label>
+    <input type="text" name="studentName" required><br><br>
+
+    <label for="studentId">Student ID:</label>
+    <input type=int name="studentId" required><br><br>
+
+    <label for="country">Country of Origin:</label>
+    <input type="text" name="country" required><br><br>
+
+    <label for="program">Academic Program:</label>
+    <input type="text" name="program" required><br><br>
+
+    <button type="submit" onclick="addEntry()">Add to Survey</button>
+  </form>
+
+<-- displaying the survey entries in a table-->
+<h2>Survey Entries</h2>
+<table id="surveyEntries">
+  <tr>
+    <th>Student Name</th>
+    <th>Student ID</th>
+    <th>Country</th>
+    <th>Program</th>
+  </tr>
+</table>
+</div>
+</main>
+
+<script>
+
+  function addEntry(){
+    const entries =
+      stduentName: document.getElementbyId("stduentName").value,
+      stduentId: document.getElementbyId("stduentId").value,
+      country: document.getElementbyId("country").value,
+      program: document.getElementbyId("program").value
+};
+
+function displayEntries(entries) {
+  const table = document.getElementById("surveyEntries");
+t
+<body>
+
+  
+</body>
+<% include partials/bottom_nav.ejs%>
+<% include partials/footer.ejs%>

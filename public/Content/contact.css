@@ -1,0 +1,74 @@
+/* Main container styling */
+.container {
+  max-width: 800px; /* Increase width for better layout */
+  padding: 30px; /* Add padding around the content */
+  margin: 0 auto; /* Center the container */
+  background-color: #f9f9f9;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
+  box-sizing: border-box;
+}
+
+/* Contact section styling */
+.contact {
+  display: flex;
+  justify-content: center; /* Centers the form horizontally */
+  align-items: center; /* Centers the form vertically */
+  padding: 70px 0; /* Vertical padding for spacing */
+  min-height: 100vh; /* Ensures the section takes full viewport height */
+  box-sizing: border-box; /* Ensures padding doesn’t affect width */
+}
+
+/* Contact items container styling */
+.contactItems {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items in the container */
+  width: 100%; /* Take full width of the container */
+}
+
+/* Individual contact item styling */
+.contactItem {
+  margin: 20px 0; /* Space between each contact item */
+  width: 100%; /* Full width for contact items */
+}
+
+/* Form styling */
+.contactInfo form {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Full width for the form */
+  max-width: 600px; /* Limit form width for better readability */
+  margin: 0 auto; /* Center form within container */
+}
+
+/* Form input and textarea styling */
+.contactInfo form input,
+.contactInfo form textarea {
+  width: 100%; /* Full width for inputs */
+  padding: 12px; /* Inner padding for better readability */
+  margin: 10px 0; /* Space between form elements */
+  border: 1px solid #767676; /* Border color for inputs */
+  border-radius: 4px; /* Rounded corners */
+  box-sizing: border-box;
+}
+
+/* Submit button styling */
+.contactInfo form .button {
+  display: flex;
+  justify-content: center; /* Center button */
+  margin-top: 20px;
+}
+
+.contactInfo form .button button {
+  padding: 10px 20px; /* Button padding */
+  background-color: #580000; /* Button color */
+  color: #fff; /* Button text color */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth transition on hover */
+}
+
+.contactInfo form .button button:hover {
+  background-color: #250000; /* Darker color on hover */
+}
