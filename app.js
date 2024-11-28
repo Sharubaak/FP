@@ -1,13 +1,46 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let logger = require('morgan');
+let session = require('express-session');
+let passport = require('passport');
+let passportLocal = require('passport-local');
+let localStrategy = passportLocal.Strategy;
+let flash = require(connect-flash);
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
-var app = express();
+//Connect to mongoDB
+
+
+
+//Set up Express session
+app.use(session({
+  secret:"OurSecret",
+  saveUninitialized:false,
+  resave:false
+}))
+
+//initialize flash
+app.use(flash());
+
+//initalize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+//create a user model instance
+let userModel = require('../models/user');
+let user = userModel.User;
+
+//serialize and deserialize the user information
+passport.serializeUser(user.serializeUser());
+passport.deserializeUser(user.deserializeUser());
+
+let indexRouter = require('./routes/index');
+let usersRouter = require('./routes/users');
+
+let app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
