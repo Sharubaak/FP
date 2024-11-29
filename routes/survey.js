@@ -1,39 +1,81 @@
+// routes/survey.js
+
 const express = require('express');
 const router = express.Router();
 
-// used to store the surveys
+// Placeholder for survey entries
 let surveys = [];
 
-//displaying all surveys
+// GET /survey - Display survey page
 router.get('/', (req, res) => {
-    res.render('survey', { title: 'Survey Page', surveys });
+    res.render('survey', {
+        title: 'Survey Page',
+        message: '',
+        surveys: surveys
+    });
 });
 
-//add a new survey
+// POST /survey/add - Add a new survey entry
 router.post('/add', (req, res) => {
     const { studentName, studentId, country, program } = req.body;
-    surveys.push({ id: Date.now(), studentName, studentId, country, program });
+
+    // Simple validation
+    if (!studentName || !studentId || !country || !program) {
+        return res.render('survey', {
+            title: 'Survey Page',
+            message: 'All fields are required.',
+            surveys: surveys
+        });
+    }
+
+    // Add new survey entry
+    surveys.push({ studentName, studentId, country, program });
     res.redirect('/survey');
 });
 
-//displaying the edit form for a survey
-router.get('/edit/:id', (req, res) => {
-    const survey = surveys.find(s => s.id == req.params.id);
-    res.render('editSurvey', { title: 'Edit Survey', survey});
+// POST /survey/edit - Render edit form with existing data
+router.post('/edit', (req, res) => {
+    const { studentName, studentId } = req.body;
+    const survey = surveys.find(s => s.studentName === studentName && s.studentId === studentId);
+
+    if (!survey) {
+        return res.render('survey', {
+            title: 'Survey Page',
+            message: 'Survey entry not found.',
+            surveys: surveys
+        });
+    }
+
+    res.render('editSurvey', {
+        title: 'Edit Survey',
+        message: '',
+        survey: survey
+    });
 });
 
-//updating a survey
-router.post('/edit/:id', (req, res) => {
-    const { studentName, studentId, country, program} = req.body;
-    surveys = surveys.map(s =>
-        s.id == req.params.id ? {...s, studentName, studentId, country, program } : s
-    );
-    res.redirect('/survey');
+// POST /survey/edit/update - Update survey entry
+router.post('/edit/update', (req, res) => {
+    const { originalStudentName, originalStudentId, studentName, studentId, country, program } = req.body;
+
+    // Find and update the survey entry
+    const index = surveys.findIndex(s => s.studentName === originalStudentName && s.studentId === originalStudentId);
+
+    if (index !== -1) {
+        surveys[index] = { studentName, studentId, country, program };
+        res.redirect('/survey');
+    } else {
+        res.render('survey', {
+            title: 'Survey Page',
+            message: 'Failed to update survey entry.',
+            surveys: surveys
+        });
+    }
 });
 
-//deleting a survey
-router.get('/delete/:id', (req, res) => {
-    surveys = surveys.filter(s => s.id != req.params.id);
+// POST /survey/delete - Delete survey entry
+router.post('/delete', (req, res) => {
+    const { studentName, studentId } = req.body;
+    surveys = surveys.filter(s => !(s.studentName === studentName && s.studentId === studentId));
     res.redirect('/survey');
 });
 
