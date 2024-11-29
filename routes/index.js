@@ -1,10 +1,17 @@
 var express = require('express');
 var router = express.Router();
 
+router.get('/', (req, res) => {
+  res.render('auth/login', {
+    title: 'Welcome to SKC Surveys - Home Page',
+    message: req.flash('message')  // Pass flash message
+  });
+});
+
 /* GET home page. */
 router.get('/home', function(req, res, next) {
   res.render('home', { 
-    title: 'Survey' });
+    title: 'Welcome to SKC Surveys - Home Page' });
 });
 
 /* GET about me page. */
@@ -21,4 +28,5 @@ router.get('/survey', function(req, res, next) {
 router.get('/contact', function(req, res, next) {
   res.render('contact', { title: 'Contact Us' });
 });
+
 module.exports = router;

@@ -1,5 +1,7 @@
-<% include partials/header.ejs %>
-<% include partials/main_nav.ejs%>
+<%- include('../partials/header') %>
+<%- include('../partials/main_nav') %>
+
+<link rel= "stylesheet" href= "Content\login.css"/>
 
 <main class = "container">
     <% if (message.length > 0) { %>
@@ -13,11 +15,11 @@
             <h1>Please login</h1>
             <form method="post" autocomplete="off"></form>
             <fieldset class="form-group">
-                <label for="password"></label>
+                <label for="username"></label>
                 <input type="text" class="form-control"
-                name= "password"
-                placeholder="Enter password"
-                id=" password" required autofocus>
+                name= "username"
+                placeholder="Enter username"
+                id=" username" required autofocus>
             </fieldset>
             <fieldset class="form-group">
                 <label for="password"></label>
@@ -38,5 +40,5 @@
     </div>
 </main>
 
-<% include partials/bottom_nav.ejs %>
-<% include partials/footer.ejs %>
+<%- include('../partials/bottom_nav') %>
+<%- include('../partials/footer') %>
