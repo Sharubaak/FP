@@ -25,6 +25,14 @@ router.post(
   })
 );
 
+// GET Register page
+router.get('/register', (req, res) => {
+  res.render('auth/register', {
+    title: 'Register to access our Survey',
+    displayName: req.user ? req.user.displayName : ''
+  });
+});
+
 // GET home page
 router.get('/home', (req, res) => {
   res.render('home', {
