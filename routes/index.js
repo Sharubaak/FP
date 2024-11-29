@@ -24,6 +24,52 @@ router.post(
     failureFlash: true // Enable flash messages for errors
   })
 );
+//GET Register Page
+router.get('/register',function(req,res,next){
+  if(!req.user)
+  {
+    res.render('auth/register',
+    {
+      title:'Register',
+      message: req.flash('registerMessage'),
+      displayName: req.user ? req.user.displayName: ''
+    })
+  }
+  else{
+    return res.redirect('/home')
+  }
+})
+//POST Registeration
+router.post('/register', function(req,res,next){
+  let newUser = new User({
+    username: req.body.username,
+    //password: req.body.password,
+    email: req.body.email,
+    displayName: req.body.displayName
+  })
+  User.register(newUser, req.body.password,(err) => {
+    if(err)
+    {
+      console.log("Error in inserting new User");
+      if(err.name =='UserExistError')
+      {
+        req.flash('registerMessage',
+        'Registration Error : User already Exist'
+      )}
+      return res.render('auth/register',
+      {
+        title:'Register',
+        message: req.flash('registerMessage'),
+        displayName: req.user ? req.user.displayName:''
+      })
+    }
+    else{
+      return passport.authenticate('local')(req,res,()=>{
+        res.redirect('/home');
+      })
+    }
+  })
+})
 
 // GET home page
 router.get('/home', (req, res) => {
