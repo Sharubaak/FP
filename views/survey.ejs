@@ -1,62 +1,75 @@
-<% include partials/header.ejs %>
-<% include partials/main_nav.ejs%>
-
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/Content/survey.css">
+</head>
+<body> 
+    
 <main>
-<div class="jumbotron">
-  <h1 class="display-4">Hello!</h1>
-  <p class="lead">This is our <%=title%> .</p>
-  <hr class="my-4">
-</div>
+  <div class="jumbotron">
+    <h1 class="display-4">Welcome to <%= title %></h1>
+    <p class="lead">Add, view, and manage survey entries below.</p>
+    <hr class="my-4">
+  </div>
 
-<div> 
-  <h2> Survey on International Students at Ontario Tech University.</h2>
+  <div> 
+  <h2> Add New Survey Entry</h2>
 
 <!-- form for adding a new entry to the survey -->
-  <form action="surveyForm" method="POST">
+  <form action="/survey/add" method="POST">
     <label for="studentName">Student Name:</label>
-    <input type="text" name="studentName" required><br><br>
+    <input type="text" name="studentName" placeholder= "Enter full name" required><br><br>
 
     <label for="studentId">Student ID:</label>
-    <input type=int name="studentId" required><br><br>
+    <input type="text" name="studentId" placeholder= "Enter student ID" required><br><br>
 
     <label for="country">Country of Origin:</label>
-    <input type="text" name="country" required><br><br>
+    <input type="text" name="country" placeholder= "Enter country of origin" required><br><br>
 
     <label for="program">Academic Program:</label>
-    <input type="text" name="program" required><br><br>
+    <input type="text" name="program" placeholder= "Enter program name" required><br><br>
 
-    <button type="submit" onclick="addEntry()">Add to Survey</button>
+    <button type="submit" class="hero-button">Add to Survey</button>
   </form>
 
-<-- displaying the survey entries in a table-->
-<h2>Survey Entries</h2>
-<table id="surveyEntries">
-  <tr>
-    <th>Student Name</th>
-    <th>Student ID</th>
-    <th>Country</th>
-    <th>Program</th>
-  </tr>
-</table>
-</div>
+<!-- displaying the survey entries in a table -->
+  <h2>Survey Entries</h2>
+  <table>
+    <thead>
+      <tr> 
+        <th>Student Name</th>
+        <th>Student ID</th>
+        <th>Country</th>
+        <th>Program</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% if (surveys.length == 0) { %>
+    <tr>
+      <td colspan="5" style="text-align:center;"> No survey entries available</td>
+    </tr>
+    <% } else { %> 
+      <% surveys.forEach(survey => { %>
+      <tr>
+        <td><%= survey.studentName %></td>
+        <td><%= survey.studentId %></td>
+        <td><%= survey.country %></td>
+        <td><%= survey.program %></td>
+        <td>
+          <form action="/survey/edit/<%= survey.id %>" method="POST" style="display:inline;">
+            <button type="submit">Edit</button>
+          </form>
+          <a href="/survey/delete/<%= survey.id %>">Delete</a>
+        </td>
+      </tr>
+      <% }); %>
+    <% } %>
+    </tbody>
+    </table>
+  </div>
 </main>
-
-<script>
-
-  function addEntry(){
-    const entries =
-      stduentName: document.getElementbyId("stduentName").value,
-      stduentId: document.getElementbyId("stduentId").value,
-      country: document.getElementbyId("country").value,
-      program: document.getElementbyId("program").value
-};
-
-function displayEntries(entries) {
-  const table = document.getElementById("surveyEntries");
-t
-<body>
-
-  
 </body>
-<% include partials/bottom_nav.ejs%>
-<% include partials/footer.ejs%>
+</html>
+

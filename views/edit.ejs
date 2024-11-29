@@ -1,0 +1,30 @@
+<% include partialss/header.ejs %>
+<% include partials/main_nav.ejs %>
+
+<link rel="stylesheet" href="/Content/survey.css" />
+
+<main>
+    <div class="jumbotron">
+        <h1 class=""display-4>Edit Survey</h1>
+        <hr class="my-4">
+    </div>
+
+    <!-- form to use to edit the survey -->
+     <form action="/survey/edit/<% survey.id %>" method="POST">
+        <label for="studentName">Student Name:</label>
+        <input type="text" name="studentName" value="<% survey.studentName %>" required><br><br>
+
+            <label for="studentId">Student ID:</label>
+            <input type="text" name="studentId" value="<% survey.studentId %>" required><br><br>
+
+            <label for="country">Country of Origin:</label>
+            <input type="text" name="country" value="<% survey.country %>" required><br><br>
+
+            <label for="studentName">Academic Program:</label>
+            <input type="text" name="program" value="<% survey.program %>" required><br><br>
+
+            <button typw="submit">Update Survey</button>
+     </form>
+</main>
+
+<% include partials/footer.ejs %>
