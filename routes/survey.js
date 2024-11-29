@@ -5,10 +5,18 @@ const router = express.Router();
 let surveys = [];
 
 //displaying all surveys
-router.get('/', (req, res) => {
+router.get('/survey', (req, res) => {
     res.render('survey', { title: 'Survey Page', surveys });
 });
 
+function requireAuth(req,res,next)
+{
+    if(!req.isAuthenticated())
+    {
+        return res.redirect('/')
+    }
+    next();
+}
 //add a new survey
 router.post('/add', (req, res) => {
     const { studentName, studentId, country, program } = req.body;
