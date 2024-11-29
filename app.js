@@ -7,45 +7,44 @@ let session = require('express-session');
 let passport = require('passport');
 let passportLocal = require('passport-local');
 let localStrategy = passportLocal.Strategy;
-let flash = require(connect-flash);
+let flash = require('connect-flash');
 
+// Initialize Express
+let app = express(); // Move this line to the top before using `app`
 
-//Connect to mongoDB
+// Connect to MongoDB (add your connection code here)
 
-
-
-//Set up Express session
+// Set up Express session
 app.use(session({
-  secret:"OurSecret",
-  saveUninitialized:false,
-  resave:false
-}))
+  secret: "OurSecret",
+  saveUninitialized: false,
+  resave: false
+}));
 
-//initialize flash
+// Initialize flash
 app.use(flash());
 
-//initalize passport
+// Initialize Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-//create a user model instance
-let userModel = require('../models/user');
+// Create a user model instance
+let userModel = require('./models/user');
 let user = userModel.User;
 
-//serialize and deserialize the user information
+// Serialize and deserialize the user information
 passport.serializeUser(user.serializeUser());
 passport.deserializeUser(user.deserializeUser());
 
+// Routers
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 
-let app = express();
-
-// view engine setup
+// View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// Middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -53,21 +52,22 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
+// Use routers
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
+// Catch 404 and forward to error handler
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
+// Error handler
+app.use(function (err, req, res, next) {
+  // Set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // Render the error page
   res.status(err.status || 500);
   res.render('error');
 });
