@@ -1,48 +1,90 @@
-const express = require('express');
-const router = express.Router();
+let express = require('express');
+let router = express.Router();
+let mongoose = require('mongoose');
+let surveyModel = require('../models/config/survey'); 
 
-// used to store the surveys
-let surveys = [];
-
-//displaying all surveys
-router.get('/survey', (req, res) => {
-    res.render('survey', { title: 'Survey Page', surveys });
-});
-
-function requireAuth(req,res,next)
-{
-    if(!req.isAuthenticated())
-    {
-        return res.redirect('/')
+/* Read Operation */
+router.get('/', async (req, res, next) => {
+    try {
+        const surveyList = await surveyModel.find();  
+        res.render('survey/list', {
+            title: 'survey Tracker',
+            survey: surveyList,
+        });
+    } catch (err) {
+        console.error(err);
+        next(err);
     }
-    next();
-}
-//add a new survey
-router.post('/add', (req, res) => {
-    const { studentName, studentId, country, program } = req.body;
-    surveys.push({ id: Date.now(), studentName, studentId, country, program });
-    res.redirect('/survey');
 });
 
-//displaying the edit form for a survey
-router.get('/edit/:id', (req, res) => {
-    const survey = surveys.find(s => s.id == req.params.id);
-    res.render('editSurvey', { title: 'Edit Survey', survey});
+/* Create Operation */
+router.get('/add', async (req, res, next) => {
+    try {
+        res.render('survey/add', { title: 'Add survey' });
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
 });
 
-//updating a survey
-router.post('/edit/:id', (req, res) => {
-    const { studentName, studentId, country, program} = req.body;
-    surveys = surveys.map(s =>
-        s.id == req.params.id ? {...s, studentName, studentId, country, program } : s
-    );
-    res.redirect('/survey');
+router.post('/add', async (req, res, next) => {
+    try {
+        let newsurvey = new surveyModel({
+            studentName: req.body.week,
+            studentId: req.body.survey,
+            countryOfOrigin: req.body.GoalReached,
+            academicProgram: req.body.date,
+        });
+        await newsurvey.save(); 
+        res.redirect('/survey');
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
 });
 
-//deleting a survey
-router.get('/delete/:id', (req, res) => {
-    surveys = surveys.filter(s => s.id != req.params.id);
-    res.redirect('/survey');
+/* Update Operation */
+router.get('/edit/:id', async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const surveyToEdit = await surveyModel.findById(id);
+        res.render('survey/edit', {
+            title: 'Edit survey',
+            survey: surveyToEdit,
+        });
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
+
+router.post('/edit/:id', async (req, res, next) => {
+    try {
+        let id = req.params.id;
+        let updatedsurvey = {
+            week: req.body.week,
+            survey: req.body.survey,
+            GoalReached: req.body.GoalReached,
+            date: req.body.date,
+        };
+        await surveyModel.findByIdAndUpdate(id, updatedsurvey);
+        res.redirect('/survey');
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
+
+/* Delete Operation */
+router.get('/delete/:id', async (req, res, next) => {
+    try {
+        let id = req.params.id;
+        await surveyModel.deleteOne({ _id: id });
+        res.redirect('/survey');
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
 });
 
 module.exports = router;
