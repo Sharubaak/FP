@@ -1,14 +1,11 @@
 <%- include('../partials/header') %>
 <%- include('../partials/main_nav') %
-<main class="container">
-    <!--Message Area-->
-    <% if (message.lenth > 0) { %>
-    <div class="alert alter-danger">
-        <%= message %>
+<% if (message.length > 0) { %>
+    <div class = "alert alter-danger">
+        <% message %>
     </div>
     <% } %>
-
-    <div class="row">
+<div class="row">
         <div class="offset-md-4 col-md-4">
             <h1>Please Register</h1>
             <form method="post" autocomplete="off">
@@ -51,6 +48,5 @@
         </div>
     </div>
 </main>
-
 <%- include('../partials/bottom_nav') %>
 <%- include('../partials/footer') %>
