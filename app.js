@@ -28,14 +28,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // User Model
-const userModel = require('../models/user');
+const userModel = require('./models/user');
 const user = userModel.User;
 passport.use(new localStrategy(user.authenticate()));
 passport.serializeUser(user.serializeUser());
 passport.deserializeUser(user.deserializeUser());
 
 // Set View Engine
-app.set('views', path.join(__dirname, '../views'));
+app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 
 // Middleware
@@ -54,8 +54,8 @@ app.use((req, res, next) => {
 });
 
 // Routes
-const indexRouter = require('../routes/index');
-const usersRouter = require('../routes/users');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
