@@ -1,90 +1,82 @@
-let express = require('express');
-let router = express.Router();
-let mongoose = require('mongoose');
-let surveyModel = require('../models/config/survey'); 
+// routes/survey.js
 
-/* Read Operation */
-router.get('/', async (req, res, next) => {
-    try {
-        const surveyList = await surveyModel.find();  
-        res.render('survey/list', {
-            title: 'survey Tracker',
-            survey: surveyList,
+const express = require('express');
+const router = express.Router();
+
+// Placeholder for survey entries
+let surveys = [];
+
+// GET /survey - Display survey page
+router.get('/', (req, res) => {
+    res.render('survey', {
+        title: 'Survey Page',
+        message: '',
+        surveys: surveys
+    });
+});
+
+// POST /survey/add - Add a new survey entry
+router.post('/add', (req, res) => {
+    const { studentName, studentId, country, program } = req.body;
+
+    // Simple validation
+    if (!studentName || !studentId || !country || !program) {
+        return res.render('survey', {
+            title: 'Survey Page',
+            message: 'All fields are required.',
+            surveys: surveys
         });
-    } catch (err) {
-        console.error(err);
-        next(err);
     }
+
+    // Add new survey entry
+    surveys.push({ studentName, studentId, country, program });
+    res.redirect('/survey');
 });
 
-/* Create Operation */
-router.get('/add', async (req, res, next) => {
-    try {
-        res.render('survey/add', { title: 'Add survey' });
-    } catch (err) {
-        console.error(err);
-        next(err);
-    }
-});
+// POST /survey/edit - Render edit form with existing data
+router.post('/edit', (req, res) => {
+    const { studentName, studentId } = req.body;
+    const survey = surveys.find(s => s.studentName === studentName && s.studentId === studentId);
 
-router.post('/add', async (req, res, next) => {
-    try {
-        let newsurvey = new surveyModel({
-            studentName: req.body.week,
-            studentId: req.body.survey,
-            countryOfOrigin: req.body.GoalReached,
-            academicProgram: req.body.date,
+    if (!survey) {
+        return res.render('survey', {
+            title: 'Survey Page',
+            message: 'Survey entry not found.',
+            surveys: surveys
         });
-        await newsurvey.save(); 
-        res.redirect('/survey');
-    } catch (err) {
-        console.error(err);
-        next(err);
     }
+
+    res.render('editSurvey', {
+        title: 'Edit Survey',
+        message: '',
+        survey: survey
+    });
 });
 
-/* Update Operation */
-router.get('/edit/:id', async (req, res, next) => {
-    try {
-        const id = req.params.id;
-        const surveyToEdit = await surveyModel.findById(id);
-        res.render('survey/edit', {
-            title: 'Edit survey',
-            survey: surveyToEdit,
+// POST /survey/edit/update - Update survey entry
+router.post('/edit/update', (req, res) => {
+    const { originalStudentName, originalStudentId, studentName, studentId, country, program } = req.body;
+
+    // Find and update the survey entry
+    const index = surveys.findIndex(s => s.studentName === originalStudentName && s.studentId === originalStudentId);
+
+    if (index !== -1) {
+        surveys[index] = { studentName, studentId, country, program };
+        res.redirect('/survey');
+    } else {
+        res.render('survey', {
+            title: 'Survey Page',
+            message: 'Failed to update survey entry.',
+            surveys: surveys
         });
-    } catch (err) {
-        console.error(err);
-        next(err);
     }
 });
 
-router.post('/edit/:id', async (req, res, next) => {
-    try {
-        let id = req.params.id;
-        let updatedsurvey = {
-            week: req.body.week,
-            survey: req.body.survey,
-            GoalReached: req.body.GoalReached,
-            date: req.body.date,
-        };
-        await surveyModel.findByIdAndUpdate(id, updatedsurvey);
-        res.redirect('/survey');
-    } catch (err) {
-        console.error(err);
-        next(err);
-    }
-});
-
-/* Delete Operation */
-router.get('/delete/:id', async (req, res, next) => {
-    try {
-        let id = req.params.id;
-        await surveyModel.deleteOne({ _id: id });
-        res.redirect('/survey');
-    } catch (err) {
-        console.error(err);
-        next(err);
-    }
+// POST /survey/delete - Delete survey entry
+router.post('/delete', (req, res) => {
+    const { studentName, studentId } = req.body;
+    surveys = surveys.filter(s => !(s.studentName === studentName && s.studentId === studentId));
+    res.redirect('/survey');
 });
 
 module.exports = router;

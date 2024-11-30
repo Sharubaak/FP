@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/Content/survey.css">
+  <title><%= title %></title>
 </head>
-<body> 
-    
+<body>
 <main>
   <div class="jumbotron">
     <h1 class="display-4">Welcome to <%= title %></h1>
@@ -13,63 +14,73 @@
     <hr class="my-4">
   </div>
 
-  <div> 
-  <h2> Add New Survey Entry</h2>
+  <div>
+    <h2>Add New Survey Entry</h2>
 
-<!-- form for adding a new entry to the survey -->
-  <form action="/survey/add" method="POST">
-    <label for="studentName">Student Name:</label>
-    <input type="text" name="studentName" placeholder= "Enter full name" required><br><br>
+    <!-- Form for adding a new survey entry -->
+    <form action="/survey/add" method="POST">
+      <label for="studentName">Student Name:</label>
+      <input type="text" name="studentName" placeholder="Enter full name" required><br><br>
 
-    <label for="studentId">Student ID:</label>
-    <input type="text" name="studentId" placeholder= "Enter student ID" required><br><br>
+      <label for="studentId">Student ID:</label>
+      <input type="text" name="studentId" placeholder="Enter student ID" required><br><br>
 
-    <label for="country">Country of Origin:</label>
-    <input type="text" name="country" placeholder= "Enter country of origin" required><br><br>
+      <label for="country">Country of Origin:</label>
+      <input type="text" name="country" placeholder="Enter country of origin" required><br><br>
 
-    <label for="program">Academic Program:</label>
-    <input type="text" name="program" placeholder= "Enter program name" required><br><br>
+      <label for="program">Academic Program:</label>
+      <input type="text" name="program" placeholder="Enter program name" required><br><br>
 
-    <button type="submit" class="hero-button">Add to Survey</button>
-  </form>
+      <button type="submit" class="hero-button">Add to Survey</button>
+    </form>
 
-<!-- displaying the survey entries in a table -->
-  <h2>Survey Entries</h2>
-  <table>
-    <thead>
-      <tr> 
-        <th>Student Name</th>
-        <th>Student ID</th>
-        <th>Country</th>
-        <th>Program</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% if (surveys.length == 0) { %>
-    <tr>
-      <td colspan="5" style="text-align:center;"> No survey entries available</td>
-    </tr>
-    <% } else { %> 
-      <% surveys.forEach(survey => { %>
-      <tr>
-        <td><%= survey.studentName %></td>
-        <td><%= survey.studentId %></td>
-        <td><%= survey.country %></td>
-        <td><%= survey.program %></td>
-        <td>
-          <form action="/survey/edit/<%= survey.id %>" method="POST" style="display:inline;">
-            <button type="submit">Edit</button>
-          </form>
-          <a href="/survey/delete/<%= survey.id %>">Delete</a>
-        </td>
-      </tr>
-      <% }); %>
-    <% } %>
-    </tbody>
+    <!-- Table displaying survey entries -->
+    <h2>Survey Entries</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Student ID</th>
+          <th>Country</th>
+          <th>Program</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (surveys.length === 0) { %>
+        <tr>
+          <td colspan="5" style="text-align:center;">No survey entries available</td>
+        </tr>
+        <% } else { %>
+        <% surveys.forEach(survey => { %>
+        <tr>
+          <td><%= survey.studentName %></td>
+          <td><%= survey.studentId %></td>
+          <td><%= survey.country %></td>
+          <td><%= survey.program %></td>
+          <td>
+            <!-- Edit Button -->
+            <form action="/survey/edit" method="POST" style="display:inline;">
+              <input type="hidden" name="studentName" value="<%= survey.studentName %>">
+              <input type="hidden" name="studentId" value="<%= survey.studentId %>">
+              <input type="hidden" name="country" value="<%= survey.country %>">
+              <input type="hidden" name="program" value="<%= survey.program %>">
+              <button type="submit" class="btn btn-info btn-sm">Edit</button>
+            </form>
+
+            <!-- Delete Button -->
+            <form action="/survey/delete" method="POST" style="display:inline;">
+              <input type="hidden" name="studentName" value="<%= survey.studentName %>">
+              <input type="hidden" name="studentId" value="<%= survey.studentId %>">
+              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+          </td>
+        </tr>
+        <% }); %>
+        <% } %>
+      </tbody>
     </table>
   </div>
 </main>
 </body>
 </html>
-
