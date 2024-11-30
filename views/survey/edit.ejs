@@ -1,0 +1,42 @@
+<% include partialss/header.ejs %>
+<% include partials/main_nav.ejs %>
+
+<link rel="stylesheet" href="/Content/survey.css" />
+
+<main>
+    <div class="jumbotron">
+        <h1 class=""display-4>Edit Survey</h1>
+        <hr class="my-4">
+    </div>
+
+    <div class="container"></div>
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+            <h1><%= title %></h1>
+            <form class="form" method="POST">
+                <div class="form-group">
+                    <label for="nameTextField">studentName</label>
+                    <input type="text" class="form-control" id="studentNameTextField" placeholder="Enter the your name?" name="studentName" value="<%= survey.studentName %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="authorTextField">studentId</label>
+                    <input type="text" class="form-control" id="studentIdTextField" placeholder="Enter the studentId of the studentName" name="studentId" value="<%= survey.studentId %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="publishedTextField">Country of Origin?</label>
+                    <input type="text" class="form-control" id="CountryOfOriginTextField" placeholder="HAve you reached the goal? (yes or no)" name="Country Of Origin?" value="<%= survey.CountryOfOrigin %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="descriptionTextArea">academicProgram</label>
+                    <input type="text" class="form-control" id="academicProgramTextField"  placeholder="Enter the Academic Program" name="Academic Program" required><%= survey.academicProgram %>
+               
+                <button class="btn btn-primary" type="submit">Submit
+                <i class="fas fa-edit"></i></button>  
+                <button class="btn btn-warning" type="submit">Cancel
+                    <i class="fas fa-undo"></i></button>    
+            </form>
+        </div>
+    </div>
+</div>
+
+<% include partials/footer.ejs %>

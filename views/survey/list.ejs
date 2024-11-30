@@ -1,0 +1,46 @@
+<main>
+  <div class="jumbotron">
+    <h1 class="display-4">Hello!</h1>
+    <p class="lead">This is <%= title %>.</p>
+    <hr class="my-4">
+  </div>
+
+<main class="container">
+    <div class="row">
+        <div class="offset-md-1 col-md-10">
+            <h1><%= title %></h1>
+            <br>
+            <a href="/survey/add" class="btn btn-primary" role="button">
+                <i class="fas fa-plus-circle"></i> Add survey
+            </a>
+            <table class="table table-bordered table-striped table-hover">
+                <tr class="d-flex">
+                    <th class="text-center col-2">Student Name</th>
+                    <th class="text-center col-2">Student Id</th>
+                    <th class="text-center col-1">Country of Origin</th>
+                    <th class="text-center col-1">Academic Program</th>
+                </tr>
+                <% for(let count=0;count<survey.length;count++) { %>
+                <tr class="d-flex">
+                    <td class="text-center col-2"><%= survey[count].studentName %></td>
+                    <td class="text-center col-2"><%= survey[count].studentId %></td>
+                    <td class="text-center col-1"><%=survey[count].countryOfOrigin%></td>
+                    <td class="text-center col-1"><%= survey[count].academicProgram %></td>
+                    <td class="text-center col-1">
+                        <a href="/survey/edit/<%= survey[count]._id%>"
+                            class="btn btn-primary btn-sm">
+                        <i class="fas fa-pencil-alt"></i>Edit
+                    </a>
+                    </td>
+                    <td class="text-center col-1">
+                        <a href="/survey/delete/<%= survey[count]._id%>"
+                            class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash-alt"></i>Delete
+                    </a>
+                    </td>
+                </tr>    
+                    <%} %>
+            </table>
+        </div>
+    </div>
+</main>
