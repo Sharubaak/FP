@@ -46,39 +46,6 @@
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
-        <% if (surveys.length === 0) { %>
-        <tr>
-          <td colspan="5" style="text-align:center;">No survey entries available</td>
-        </tr>
-        <% } else { %>
-        <% surveys.forEach(survey => { %>
-        <tr>
-          <td><%= survey.studentName %></td>
-          <td><%= survey.studentId %></td>
-          <td><%= survey.country %></td>
-          <td><%= survey.program %></td>
-          <td>
-            <!-- Edit Button -->
-            <form action="/survey/edit" method="POST" style="display:inline;">
-              <input type="hidden" name="studentName" value="<%= survey.studentName %>">
-              <input type="hidden" name="studentId" value="<%= survey.studentId %>">
-              <input type="hidden" name="country" value="<%= survey.country %>">
-              <input type="hidden" name="program" value="<%= survey.program %>">
-              <button type="submit" class="btn btn-info btn-sm">Edit</button>
-            </form>
-
-            <!-- Delete Button -->
-            <form action="/survey/delete" method="POST" style="display:inline;">
-              <input type="hidden" name="studentName" value="<%= survey.studentName %>">
-              <input type="hidden" name="studentId" value="<%= survey.studentId %>">
-              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-            </form>
-          </td>
-        </tr>
-        <% }); %>
-        <% } %>
-      </tbody>
     </table>
   </div>
 </main>
