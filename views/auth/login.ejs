@@ -1,46 +1,62 @@
 <%- include('../partials/header') %>
 <%- include('../partials/main_nav') %>
 
-<link rel="stylesheet" href="Content/login.css" />
+<link rel="stylesheet" href="/Content/login.css" />
+
+<main>
+  <div class="jumbotron">
+    <h1 class="display-4">Login Page</h1>
+    <p class="lead">Login to have more access!</p>
+    <hr class="my-4">
+  </div>
 <body>
-<main class="container">
+  <div class="container">
     <% if (message && message.length > 0) { %>
-        <div class="alert alert-danger">
-            <%= message %>
-        </div>
+      <div class="alert">
+        <%= message %>
+      </div>
     <% } %>
 
-    <div class="row">
-        <div class="offset-md-4">
-            <h1>Please login</h1>
-            <form method="post" autocomplete="off">
-                <fieldset class="form-group">
-                    <label for="displayName">Display Name</label>
-                    <input type="text" class="form-control"
-                        name="displayName"
-                        placeholder="Enter display name"
-                        id="displayName" required autofocus>
-                </fieldset>
-                <fieldset class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control"
-                        name="password"
-                        placeholder="Enter password"
-                        id="password" required>
-                    <br>
-                    or
-                    <a href="/register">Register Here</a>
-                </fieldset>
-                <fieldset class="form-group text-right">
-                    <input type="submit" class="btn btn-success" value="Login">
-                    <a href="/">
-                        <input type="button" class="btn btn-warning" value="Cancel">
-                    </a>
-                </fieldset>
-            </form>
-        </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form method="post" autocomplete="off">
+          <fieldset class="form-group">
+            <label for="displayName">Display Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="displayName"
+              placeholder="Enter display name"
+              id="displayName"
+              required
+              autofocus
+            />
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              placeholder="Enter password"
+              id="password"
+              required
+            />
+            <br />
+            or <a href="/register">Register Here</a>
+          </fieldset>
+          <fieldset class="form-group text-right">
+            <input type="submit" class="btn btn-success" value="Login" />
+            <a href="/">
+              <input type="button" class="btn btn-warning" value="Cancel" />
+            </a>
+          </fieldset>
+        </form>
+      </div>
     </div>
+  </div>
+ </body>
 </main>
-</body>
+
 <%- include('../partials/bottom_nav') %>
 <%- include('../partials/footer') %>

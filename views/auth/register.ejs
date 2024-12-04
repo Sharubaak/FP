@@ -1,6 +1,11 @@
 <%- include('../partials/header') %>
 <%- include('../partials/main_nav') %>
 <body>
+  <div class="jumbotron">
+    <h1 class="display-4">Register page</h1>
+    <p class="lead">Login to have more access!</p>
+    <hr class="my-4">
+  </div>
 <main class = "container">
     <% if (message.length > 0) { %>
     <div class = "alert alter-danger">
@@ -9,7 +14,6 @@
     <% } %>
     <div class="row">
         <div class="offset-md-4 col-md-4">
-            <h1>Please Register</h1>
             <form method="post" autocomplete="off">
                 <fieldset class="form-group">
                     <label for="username"></label>

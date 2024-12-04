@@ -1,52 +1,61 @@
-/* Basic reset for consistent styling */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Body styling */
-  body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f4f4f9;
-  }
-  
-  /* Main container styling */
-  main {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  /* Text content styling */
-  .text {
-    margin: 20px 0;
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #555;
-  }
-  
-  /* Unordered list styling within .text */
-  .text ul {
-    list-style-type: disc;
-    padding-left: 20px;
-    margin-top: 10px;
-  }
-  
-  .text ul li {
-    margin-bottom: 10px;
-  }
-  
-  
-  /* Responsive styling for smaller screens */
-  @media (max-width: 768px) {
-    .jumbotron .display-4 {
-      font-size: 2rem;
-    }
-  
-    .text {
-      font-size: 0.9rem;
-    }
-  }
+body, h1, p, ul {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding-bottom: 50px;
+}
+
+/* Divider */
+hr.my-4 {
+  border: 0;
+  height: 1px;
+  background: #ddd;
+  margin: 20px 0;
+}
+
+/* Text content */
+.text {
+  margin: 15px 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+ul {
+  list-style: none;
+  padding-left: 20px;
+}
+
+ul li {
+  margin: 8px 0;
+}
+
+ul li strong {
+  color: #007bff;
+}
+
+/* Links */
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
