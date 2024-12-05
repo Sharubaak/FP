@@ -3,9 +3,9 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 // Google OAuth strategy configuration
 passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK_URL,
+    clientID: "990696096435-fjl41fug0qss4551saqt7mpm7pp4s4n8.apps.googleusercontent.com",
+    clientSecret: "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",
+    callbackURL: "http://localhost:3000/auth/google/callback",
   },
   function(accessToken, refreshToken, profile, cb) {
     // Here, we can link the Google account to the app's user model.
