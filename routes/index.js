@@ -121,4 +121,29 @@ router.get(
     failureRedirect: '/login', // Redirect on failure
   })
 )
+
+
+
+// Initiate Google login
+router.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+// Handle Google callback
+router.get('/oauth2/redirect/google',
+  passport.authenticate('google', {
+    successRedirect: '/home', // Redirect on successful login
+    failureRedirect: '/login' // Redirect on login failure
+  })
+);
+
+// Protected route for logged-in users
+router.get('/home', (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect('/login'); // Redirect if not authenticated
+  }
+  res.render('home', { user: req.user }); // Pass user info to the view
+});
+
+
 module.exports = router;

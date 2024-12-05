@@ -9,8 +9,9 @@ const localStrategy = passportLocal.Strategy;
 const flash = require('connect-flash');
 const createError = require('http-errors');
 var FacebookStrategy = require('passport-facebook');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-require('dotenv').config();
+require('../auth/passport-config.js');
 
 // Initialize Express
 const app = express();
