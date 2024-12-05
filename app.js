@@ -16,6 +16,7 @@ const app = express();
 
 
 // Session Configuration
+// Set-up Express-Session
 app.use(session({
   secret: "OurSecret",
   saveUninitialized: false,
@@ -23,13 +24,15 @@ app.use(session({
 }));
 
 // Flash Messages Middleware
+// initialize flash-connect
 app.use(flash());
 
-// Passport Initialization
+// initialize the passport
 app.use(passport.initialize());
 app.use(passport.session());
 
 // User Model
+// create a user model instance
 const userModel = require('./models/user');
 const user = userModel.User;
 passport.use(new localStrategy(user.authenticate()));
