@@ -1,1 +1,2 @@
-module.exports = {"URI":"mongodb+srv://sabrina:hJCMhQnmNioKcGnL@cluster0.wrzpl8v.mongodb.net/JobTracker"}
+module.exports = {"URI":"//mongodb+srv://carolinenkan:GPzHyuPJW2fvWXPv@cluster1.72dms.mongodb.net/"}//online database
+//mongodb+srv://carolinenkan:GPzHyuPJW2fvWXPv@cluster1.72dms.mongodb.net//mongo compass database
