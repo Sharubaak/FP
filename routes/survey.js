@@ -49,7 +49,7 @@ router.post('/edit', (req, res) => {
     res.render('editSurvey', {
         title: 'Edit Survey',
         message: '',
-        survey: survey
+        survey: surveys
     });
 });
 
