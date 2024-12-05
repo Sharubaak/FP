@@ -14,6 +14,7 @@ const passport = require('./views/auth/passport-config.js');
 // Initialize Express
 const app = express();
 
+
 // Session Configuration
 app.use(session({
   secret: "OurSecret",
@@ -47,6 +48,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.get('./auth/facebook', passport.authenticate('facebook'));
+
+//mongoose.connect(DB.URI);
+let mongoose = require('mongoose');
+let mongoDB = mongoose.connection;
+let DB = require('./db');
+mongoose.connect(DB.URI);
+mongoDB.on('error',console.error.bind(console,'Connection Error'));
+mongoDB.once('open',()=>{console.log("Mongo DB is connected")});
+
 
 // Flash Messages to Views
 app.use((req, res, next) => {
