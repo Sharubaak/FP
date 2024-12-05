@@ -111,4 +111,14 @@ router.get('/logout', (req, res, next) => {
   });
 });
 
+
+router.get('/auth/facebook', passport.authenticate('facebook'));
+
+router.get(
+  '/oauth2/redirect/facebook',
+  passport.authenticate('facebook', {
+    successRedirect: '/home', // Redirect on success
+    failureRedirect: '/login', // Redirect on failure
+  })
+)
 module.exports = router;

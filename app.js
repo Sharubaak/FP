@@ -8,6 +8,9 @@ const passportLocal = require('passport-local');
 const localStrategy = passportLocal.Strategy;
 const flash = require('connect-flash');
 const createError = require('http-errors');
+var FacebookStrategy = require('passport-facebook');
+
+require('dotenv').config();
 
 // Initialize Express
 const app = express();
@@ -44,6 +47,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
+app.get('./auth/facebook', passport.authenticate('facebook'));
 
 // Flash Messages to Views
 app.use((req, res, next) => {
@@ -74,6 +78,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error', { title: 'Error' });
 });
+
 
 module.exports = app;
 

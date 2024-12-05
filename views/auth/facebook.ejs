@@ -1,0 +1,75 @@
+
+const passport = require('passport');
+const FacebookStrategy = require('passport-facebook').Strategy;
+// Facebook Authentication Strategy
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: process.env.FACEBOOK_APP_ID,
+      clientSecret: process.env.FACEBOOK_APP_SECRET,
+      callbackURL: 'process.env.FACEBOOK_CALLBACK_URL', 
+    },
+    (accessToken, refreshToken, profile, cb) => {
+      // Check if the user already exists
+      db.get(
+        'SELECT * FROM federated_credentials WHERE provider = ? AND subject = ?',
+        ['https://www.facebook.com', profile.id],
+        (err, cred) => {
+          if (err) return cb(err);
+
+          if (!cred) {
+            // User not found, create a new user
+            db.run(
+              'INSERT INTO users (name) VALUES (?)',
+              [profile.displayName],
+              function (err) {
+                if (err) return cb(err);
+
+                const userId = this.lastID;
+
+                db.run(
+                  'INSERT INTO federated_credentials (user_id, provider, subject) VALUES (?, ?, ?)',
+                  [userId, 'https://www.facebook.com', profile.id],
+                  (err) => {
+                    if (err) return cb(err);
+
+                    const user = {
+                      id: userId.toString(),
+                      name: profile.displayName,
+                    };
+                    return cb(null, user);
+                  }
+                );
+              }
+            );
+          } else {
+            // User found, log in with existing credentials
+            db.get(
+              'SELECT * FROM users WHERE id = ?',
+              [cred.user_id],
+              (err, user) => {
+                if (err) return cb(err);
+                if (!user) return cb(null, false);
+                return cb(null, user);
+              }
+            );
+          }
+        }
+      );
+    }
+  )
+);
+
+// Serialize and Deserialize User
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  db.get('SELECT * FROM users WHERE id = ?', [id], (err, user) => {
+    if (err) return done(err);
+    done(null, user);
+  });
+});
+
+module.exports = passport;
