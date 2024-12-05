@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Define the schema for the weight model
+//create a model class
 let surveySchema = mongoose.Schema({
     studentName: String, 
     studentId: Number, 
