@@ -65,7 +65,7 @@ router.post('/register', function(req,res,next){
     }
     else{
       return passport.authenticate('local')(req,res,()=>{
-        res.redirect('/');
+        res.redirect('/survey');
       })
     }
   })
