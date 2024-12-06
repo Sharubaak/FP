@@ -1,18 +1,32 @@
 
 const express = require('express');
 const router = express.Router();
+const Survey = require('/models/Survey');
 
-// Placeholder for survey entries
-let surveys = [];
 
 // Display survey page
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     res.render('survey', {
         title: 'Survey Page',
         message: '',
         surveys: surveys
     });
 });
+
+// GET /survey - Fetch all survey entries
+router.get('/', async (req, res) => {
+    try {
+      const surveys = await Survey.find(); // Fetch all entries from MongoDB
+      res.render('survey', { 
+        title: 'Survey Page', 
+        surveys: surveys 
+      });
+    } catch (err) {
+      console.error('Error getting surveys:', err);
+      res.status(500).send('Error getting survey entries.');
+    }
+  });
+  
 
 //Add a new survey entry
 router.post('/add', async (req, res) => {

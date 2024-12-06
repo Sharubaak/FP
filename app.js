@@ -55,17 +55,9 @@ app.get('./auth/facebook', passport.authenticate('facebook'));
 //mongoose.connect(DB.URI);
 let mongoose = require('mongoose');
 const mongoURI = 'mongodb+srv://carolinenkan:GPzHyuPJW2fvWXPv@cluster1.72dms.mongodb.net/Survey?retryWrites=true&w=majority';
-let mongoDB = mongoose.connection;
 let DB = require('./db');
 
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log('Connected to MongoDB Atlas'))
-.catch(err => console.error('MongoDB connection error:', err));
-
-mongoose.connect(DB.URI);
+let mongoDB = mongoose.connection;
 mongoDB.on('error',console.error.bind(console,'Connection Error'));
 mongoDB.once('open',()=>{console.log("Mongo DB is connected")});
 

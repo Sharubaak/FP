@@ -51,61 +51,9 @@
           <th>Actions</th>
         </tr>
       </thead>
-      <form action="/survey/delete" method="POST" style="display:inline;">
-        <input type="hidden" name="studentId" value="<%= survey.studentId %>">
-        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-      </form>
     </table>
   </div>
 </main>
-
-<script>
-  // Function to handle adding a survey entry
-  async function addSurvey() {
-    const studentName = document.getElementById('studentName').value;
-    const studentId = document.getElementById('studentId').value;
-    const country = document.getElementById('country').value;
-    const program = document.getElementById('program').value;
-
-    if (!studentName || !studentId || !country || !program) {
-      alert('All fields are required.');
-      return;
-    }
-
-    try {
-      const response = await fetch('/survey/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ studentName, studentId, country, program })
-      });
-
-      if (response.ok) {
-        const newRow = `
-          <tr>
-            <td>${studentName}</td>
-            <td>${studentId}</td>
-            <td>${country}</td>
-            <td>${program}</td>
-            <td>
-              <button class="btn btn-info btn-sm" onclick="editSurvey('${studentName}', '${studentId}')">Edit</button>
-              <button class="btn btn-danger btn-sm" onclick="deleteSurvey('${studentName}', '${studentId}')">Delete</button>
-            </td>
-          </tr>`;
-        document.querySelector('#surveyTable tbody').insertAdjacentHTML('beforeend', newRow);
-
-        // Clear the form
-        document.getElementById('surveyForm').reset();
-      } else {
-        alert('Failed to add the survey entry.');
-      }
-    } catch (err) {
-      console.error('Error:', err);
-      alert('An error occurred while adding the survey entry.');
-    }
-  }
-</script>
 </body>
 </html>
 
