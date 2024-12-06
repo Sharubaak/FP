@@ -11,4 +11,4 @@ let surveySchema = mongoose.Schema({
 });
 
 // Create and export the weight model
-module.exports = mongoose.model('survey', surveySchema);
+module.exports = mongoose.model('Survey', surveySchema);
