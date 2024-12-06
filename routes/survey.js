@@ -1,12 +1,12 @@
-// routes/survey.js
 
 const express = require('express');
 const router = express.Router();
+const Survey = require('../models/Survey');
 
 // Placeholder for survey entries
 let surveys = [];
 
-// GET /survey - Display survey page
+// Display survey page
 router.get('/', (req, res) => {
     res.render('survey', {
         title: 'Survey Page',
@@ -15,25 +15,29 @@ router.get('/', (req, res) => {
     });
 });
 
-// POST /survey/add - Add a new survey entry
-router.post('/add', (req, res) => {
+//Add a new survey entry
+router.post('/add', async (req, res) => {
     const { studentName, studentId, country, program } = req.body;
 
-    // Simple validation
     if (!studentName || !studentId || !country || !program) {
         return res.render('survey', {
-            title: 'Survey Page',
-            message: 'All fields are required.',
-            surveys: surveys
+          title: 'Survey Page',
+          message: 'All fields are required.',
+          surveys: await Survey.find() // Reload existing surveys
         });
-    }
+      }
+    
+      try {
+        const newSurvey = new Survey({ studentName, studentId, country, program });
+        await newSurvey.save(); // Save to MongoDB
+        res.redirect('/survey'); // Redirect back to the survey page
+      } catch (err) {
+        console.error('Error adding survey entry:', err);
+        res.status(500).send('Error adding survey entry.');
+      }
+    });
 
-    // Add new survey entry
-    surveys.push({ studentName, studentId, country, program });
-    res.redirect('/survey');
-});
-
-// POST /survey/edit - Render edit form with existing data
+//Render edit form with existing data
 router.post('/edit', (req, res) => {
     const { studentName, studentId } = req.body;
     const survey = surveys.find(s => s.studentName === studentName && s.studentId === studentId);
@@ -53,7 +57,7 @@ router.post('/edit', (req, res) => {
     });
 });
 
-// POST /survey/edit/update - Update survey entry
+//Update survey entry
 router.post('/edit/update', (req, res) => {
     const { originalStudentName, originalStudentId, studentName, studentId, country, program } = req.body;
 
@@ -72,7 +76,7 @@ router.post('/edit/update', (req, res) => {
     }
 });
 
-// POST /survey/delete - Delete survey entry
+//Delete survey entry
 router.post('/delete', (req, res) => {
     const { studentName, studentId } = req.body;
     surveys = surveys.filter(s => !(s.studentName === studentName && s.studentId === studentId));

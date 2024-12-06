@@ -1,62 +1,29 @@
-
-<!-- views/editSurvey.ejs -->
-
 <%- include('../partials/header') %>
 <%- include('../partials/main_nav') %>
 
-<main class="container">
-    <% if (message && message.length > 0) { %>
-    <div class="alert alert-danger">
-        <%= message %>
+<main>
+    <div class="jumbotron">
+        <h1 class="display-4">Edit Survey Entry</h1>
+        <hr class="my-4">
     </div>
-    <% } %>
 
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <h1>Edit Survey Entry</h1>
-            <form action="/survey/edit/update" method="POST" autocomplete="off">
-                <!-- Hidden fields to store original identifiers -->
-                <input type="hidden" name="originalStudentName" value="<%= survey.studentName %>">
-                <input type="hidden" name="originalStudentId" value="<%= survey.studentId %>">
+    <form action="/survey/edit/update" method="POST">
+        <input type="hidden" name="originalStudentName" value="<%= survey.studentName %>">
+        <input type="hidden" name="originalStudentId" value="<%= survey.studentId %>">
 
-                <fieldset class="form-group">
-                    <label for="studentName">Student Name:</label>
-                    <input type="text" class="form-control"
-                    name="studentName"
-                    value="<%= survey.studentName %>"
-                    id="studentName" required autofocus>
-                </fieldset>
-                <fieldset class="form-group">
-                    <label for="studentId">Student ID:</label>
-                    <input type="text" class="form-control"
-                    name="studentId"
-                    value="<%= survey.studentId %>"
-                    id="studentId" required>
-                </fieldset>
-                <fieldset class="form-group">
-                    <label for="country">Country of Origin:</label>
-                    <input type="text" class="form-control"
-                    name="country"
-                    value="<%= survey.country %>"
-                    id="country" required>
-                </fieldset>
-                <fieldset class="form-group">
-                    <label for="program">Academic Program:</label>
-                    <input type="text" class="form-control"
-                    name="program"
-                    value="<%= survey.program %>"
-                    id="program" required>
-                </fieldset>
-                <fieldset class="form-group text-right">
-                    <input type="submit" class="btn btn-success" value="Update">
-                    <a href="/survey">
-                        <input type="button" class="btn btn-warning" value="Cancel">
-                    </a>
-                </fieldset>
-            </form>
-        </div>
-    </div>
+        <label for="studentName">Student Name:</label>
+        <input type="text" name="studentName" value="<%= survey.studentName %>" required><br><br>
+
+        <label for="studentId">Student ID:</label>
+        <input type="text" name="studentId" value="<%= survey.studentId %>" required><br><br>
+
+        <label for="country">Country of Origin:</label>
+        <input type="text" name="country" value="<%= survey.country %>" required><br><br>
+
+        <label for="program">Academic Program:</label>
+        <input type="text" name="program" value="<%= survey.program %>" required><br><br>
+
+        <button type="submit" class="btn btn-success">Update</button>
+        <a href="/survey" class="btn btn-warning">Cancel</a>
+    </form>
 </main>
-
-<%- include('../partials/bottom_nav') %>
-<%- include('../partials/footer') %>

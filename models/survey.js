@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 //create a model class
-let surveySchema = mongoose.Schema({
+let surveySchema = new mongoose.Schema({
     studentName: String, 
     studentId: Number, 
-    countryOfOrigin: String, 
-    acadmicProgram: String
+    country: String, 
+    program: String
 }, {
     collection: 'survey' // Use 'collection' to specify the MongoDB collection name
 });
 
 // Create and export the weight model
-module.exports = mongoose.model('survey', surveySchema);
+module.exports = mongoose.model('Survey', surveySchema);
