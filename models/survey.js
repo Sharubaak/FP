@@ -7,7 +7,7 @@ let surveySchema = new mongoose.Schema({
     country: String, 
     program: String
 }, {
-    collection: 'survey' // Use 'collection' to specify the MongoDB collection name
+    collection: 'Survey' // Use 'collection' to specify the MongoDB collection name
 });
 
 // Create and export the weight model
