@@ -1,7 +1,6 @@
 
 const express = require('express');
 const router = express.Router();
-const Survey = require('../models/Survey');
 
 // Placeholder for survey entries
 let surveys = [];
