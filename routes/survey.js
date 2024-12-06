@@ -1,7 +1,7 @@
 
 const express = require('express');
 const router = express.Router();
-const Survey = require('/models/Survey');
+const Survey = require('../models/Survey');
 
 
 // Display survey page
@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     });
 });
 
-// GET /survey - Fetch all survey entries
+// GET survey entries
 router.get('/', async (req, res) => {
     try {
       const surveys = await Survey.find(); // Fetch all entries from MongoDB

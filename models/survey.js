@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 //create a model class
-let surveySchema = new mongoose.Schema({
+const surveySchema = new mongoose.Schema({
     studentName: String, 
     studentId: Number, 
     country: String, 
